@@ -1,37 +1,32 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-class User extends React.Component{
-  constructor(){
-    super()
-
-    this.state = {
-
-    }
-  }
+class PostItem extends React.Component{
 
 
   render(){
-    // console.log("Props",props);
-    const { user } = this.props;
+
+    const { post , user } = this.props;
     return(
       <div>
       <div className="card">
         <div className="card-body">
-          <h6 className="card-title">{user.username}</h6>
+          <h5 className="card-title">{post.title}</h5>
           <div className="d-flex justify-content-between align-items-center">
-            <p className="mb-0">{user.name}</p>
+            <p className="mb-0">{post.body}</p>
             <NavLink to={{
-              pathname: './posts',
+              pathname: './post',
+              post : post,
               user : user
             }}>
               <button
                 type="button"
                 className="btn btn-success"
               >
-                Posts
+                Details
               </button>
             </NavLink>
+
           </div>
 
 
@@ -45,4 +40,4 @@ class User extends React.Component{
   }
 }
 
-export default User;
+export default PostItem;

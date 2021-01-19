@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import {API_URL_POST_POSTS} from "./api.js";
+import {API_URL_POST_POSTS} from "../utilities/api.js";
 
 const customStyles = {
   content : {
@@ -13,7 +13,7 @@ const customStyles = {
   }
 };
 
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+
 Modal.setAppElement('#root')
 
 class PostModal extends React.Component{
@@ -27,20 +27,11 @@ class PostModal extends React.Component{
       body: ""
     }
   }
-  // const [modalIsOpen,setIsOpen] = React.useState(false);
+
   openModal = () => {
     this.setState({
       modalIsOpen : true
     })
-  }
-
-  afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    console.log("hello");
-    // this.setState({
-    //   subtitle : subtitle.style.color = '#f00'
-    // })
-
   }
   changeTitle = (e) =>{
       this.setState({title: e.target.value});
@@ -78,7 +69,6 @@ class PostModal extends React.Component{
   }
 
   closeModal = () =>{
-    // setIsOpen(false);
     this.setState({
       modalIsOpen : false
     })
@@ -86,24 +76,31 @@ class PostModal extends React.Component{
     render(){
       return (
         <div>
-          <button onClick={this.openModal}>Add Post</button>
+          <button className="btn btn-success" type="button" onClick={this.openModal}>Add Post</button>
           <Modal
             isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
+            onAfterOpen={null}
             onRequestClose={this.closeModal}
             style={customStyles}
             contentLabel="Example Modal"
           >
 
             <h2>Specify:</h2>
-            <button onClick={this.closeModal}>close</button>
-            <div>I am a modal</div>
-            <form>
-              <label>Insert Title</label>
-              <input type="text" onChange={this.changeTitle}/>
-              <label>Insert Body</label>
-              <input type="text" onChange={this.changeBody}/>
-              <button onClick={this.addPostToCurrentUser}>Add</button>
+              <form>
+              <div className="form-group d-flex">
+                <div className="justify-content-between align-items-center">
+                  <label>Insert Title</label>
+                  <input type="text" className="form-control" onChange={this.changeTitle}/>
+                </div>
+                <div className="justify-content-between align-items-center">
+                  <label>Insert Body</label>
+                  <input type="text" className="form-control" onChange={this.changeBody}/>
+                </div>
+              </div>
+              <div className="d-flex flex-start align-items-center">
+              <button className="btn btn-success mr-2 " type="button" onClick={this.addPostToCurrentUser}>Add</button>
+              <button className="btn btn-secondary " type="button" onClick={this.closeModal}>close</button>
+              </div>
             </form>
           </Modal>
         </div>
@@ -113,13 +110,3 @@ class PostModal extends React.Component{
 }
 
 export default PostModal;
-
-// import React from 'react';
-// import Popup from 'reactjs-popup';
-// import 'reactjs-popup/dist/index.css';
-//
-// export default () => (
-//   <Popup trigger={<button> Trigger</button>} position="right center">
-//     <div>Popup content here !!</div>
-//   </Popup>
-// );
